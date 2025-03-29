@@ -25,8 +25,10 @@ public class ProductoService {
         return productoRepository.findAll();
     }
 
-    public Mono<Void> deleteProduct(Long id) {
-        return productoRepository.deleteById(id);
+    public Mono<Boolean> deleteProduct(Long id) {
+        return productoRepository.findById(id)
+                .flatMap(existingProduct -> productoRepository.delete(existingProduct).thenReturn(true))
+                .defaultIfEmpty(false);
     }
 
     public Mono<ProductoModel> softDeleteProduct(Long id) {

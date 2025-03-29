@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
-
+@AllArgsConstructor  // Agrega constructor con todos los parámetros
+@NoArgsConstructor   // Agrega constructor vacío (por si es necesario en otras partes del código)
 @Table("product")
 public class ProductoModel {
 
@@ -17,7 +18,7 @@ public class ProductoModel {
     private Long id;
 
     private String type;
-
+    
     private String description;
 
     @Column("package_weight")

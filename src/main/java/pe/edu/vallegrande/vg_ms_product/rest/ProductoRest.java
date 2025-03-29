@@ -28,9 +28,10 @@ public class ProductoRest {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    
     public Mono<Void> deleteProduct(@PathVariable Long id) {
-        return productoService.deleteProduct(id);
+        return productoService.deleteProduct(id)
+                .flatMap(deleted -> deleted ? Mono.empty() : Mono.error(new RuntimeException("Producto no encontrado")));
     }
 
     @PutMapping("/logic/{id}")
